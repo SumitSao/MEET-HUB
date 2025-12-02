@@ -9,8 +9,9 @@
     bottom: 10vh;
     height: 20vh;
     width: auto;
-    left: 0;
+    left: 10px;
     border-radius: 20px;
+    z-index: 10;
 }
 
 .buttonContainers {
