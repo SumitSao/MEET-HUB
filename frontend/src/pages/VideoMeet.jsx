@@ -66,10 +66,8 @@ export default function VideoMeetComponent() {
     // }
 
     useEffect(() => {
-        console.log("HELLO")
         getPermissions();
-
-    })
+    }, [])
 
     let getDislayMedia = () => {
         if (screen) {
@@ -125,11 +123,7 @@ export default function VideoMeetComponent() {
     useEffect(() => {
         if (video !== undefined && audio !== undefined) {
             getUserMedia();
-            console.log("SET STATE HAS ", video, audio);
-
         }
-
-
     }, [video, audio])
     let getMedia = () => {
         setVideo(videoAvailable);
@@ -146,7 +140,7 @@ export default function VideoMeetComponent() {
             window.localStream.getTracks().forEach(track => track.stop())
         } catch (e) { console.log(e) }
 
-        window.localStream = stream ;
+        window.localStream = stream;
         localVideoref.current.srcObject = stream;
 
         for (let id in connections) {
@@ -397,7 +391,7 @@ export default function VideoMeetComponent() {
             getDislayMedia();
         }
     }, [screen])
-    
+
     let handleScreen = () => {
         setScreen(!screen);
     }
@@ -441,7 +435,7 @@ export default function VideoMeetComponent() {
         // this.setState({ message: "", sender: username })
     }
 
-    
+
     let connect = () => {
         setAskForUsername(false);
         getMedia();
@@ -506,7 +500,7 @@ export default function VideoMeetComponent() {
                             {(video === true) ? <VideocamIcon /> : <VideocamOffIcon />}
                         </IconButton>
                         <IconButton onClick={handleEndCall} style={{ color: "red" }}>
-                            <CallEndIcon  />
+                            <CallEndIcon />
                         </IconButton>
                         <IconButton onClick={handleAudio} style={{ color: "white" }}>
                             {audio === true ? <MicIcon /> : <MicOffIcon />}
