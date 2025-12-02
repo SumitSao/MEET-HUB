@@ -23,7 +23,7 @@ const defaultTheme = createTheme();
 
 export default function Authentication() {
 
-    
+
 
     const [username, setUsername] = React.useState();
     const [password, setPassword] = React.useState();
@@ -39,8 +39,52 @@ export default function Authentication() {
 
     const { handleRegister, handleLogin } = React.useContext(AuthContext);
 
+    // Validation function for password
+    const validatePassword = (password) => {
+        const minLength = 7;
+        const hasCapital = /[A-Z]/.test(password);
+        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+
+        if (password.length < minLength) {
+            return { valid: false, message: "Password must be at least 7 characters long" };
+        }
+        if (!hasCapital) {
+            return { valid: false, message: "Password must contain at least 1 capital letter" };
+        }
+        if (!hasSpecialChar) {
+            return { valid: false, message: "Password must contain at least 1 special character" };
+        }
+
+        return { valid: true };
+    };
+
+    // Validation function for username
+    const validateUsername = (username) => {
+        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(username);
+
+        if (!hasSpecialChar) {
+            return { valid: false, message: "Username must contain at least 1 special character" };
+        }
+
+        return { valid: true };
+    };
+
     let handleAuth = async () => {
         try {
+            // Validate username
+            const usernameValidation = validateUsername(username);
+            if (!usernameValidation.valid) {
+                setError(usernameValidation.message);
+                return;
+            }
+
+            // Validate password
+            const passwordValidation = validatePassword(password);
+            if (!passwordValidation.valid) {
+                setError(passwordValidation.message);
+                return;
+            }
+
             if (formState === 0) {
 
                 let result = await handleLogin(username, password)
@@ -83,7 +127,7 @@ export default function Authentication() {
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                     }}
-                    
+
                 />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <Box

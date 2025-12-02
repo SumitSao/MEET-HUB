@@ -4,6 +4,38 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { Meeting } from "../models/meeting.model.js";
 
+// Validation function for password
+const validatePassword = (password) => {
+    // Minimum 7 characters, at least 1 capital letter, and 1 special character
+    const minLength = 7;
+    const hasCapital = /[A-Z]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+    
+    if (password.length < minLength) {
+        return { valid: false, message: "Password must be at least 7 characters long" };
+    }
+    if (!hasCapital) {
+        return { valid: false, message: "Password must contain at least 1 capital letter" };
+    }
+    if (!hasSpecialChar) {
+        return { valid: false, message: "Password must contain at least 1 special character" };
+    }
+    
+    return { valid: true };
+};
+
+// Validation function for username
+const validateUsername = (username) => {
+    // Must contain at least 1 special character
+    const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(username);
+    
+    if (!hasSpecialChar) {
+        return { valid: false, message: "Username must contain at least 1 special character" };
+    }
+    
+    return { valid: true };
+};
+
 const login = async (req, res) => {
     const { username, password } = req.body;
 
@@ -37,6 +69,18 @@ const register = async (req, res) => {
 
     if (!name || !username || !password) {
         return res.status(400).json({ message: "Please provide name, username, and password" });
+    }
+
+    // Validate username
+    const usernameValidation = validateUsername(username);
+    if (!usernameValidation.valid) {
+        return res.status(400).json({ message: usernameValidation.message });
+    }
+
+    // Validate password
+    const passwordValidation = validatePassword(password);
+    if (!passwordValidation.valid) {
+        return res.status(400).json({ message: passwordValidation.message });
     }
 
     try {
