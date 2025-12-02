@@ -1,4 +1,3 @@
-
 .meetVideoContainer {
     position: relative;
     height: 100vh;
@@ -25,7 +24,7 @@
     font-size: 3rem;
 }
 
-.conferenceView { 
+.conferenceView {
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -35,13 +34,60 @@
     align-items: center;
 }
 
-.conferenceView  video {
-    width: 80vw;
-    height: 70vh;
-    max-width: 1200px;
+.conferenceView video {
+    width: 50vw;
+    height: 40vh;
+    max-width: 800px;
     border-radius: 10px;
     object-fit: contain;
     background: #000;
+}
+
+/* Screen Share Layout Styles */
+.screenShareLayout {
+    display: flex;
+    height: 90vh;
+    gap: 10px;
+    padding: 10px;
+}
+
+.screenShareMain {
+    flex: 0 0 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.screenShareMain video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.participantSidebar {
+    flex: 0 0 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+.participantItem {
+    width: 100%;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+}
+
+.participantItem video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .chatRoom {
@@ -64,18 +110,25 @@
 }
 
 .chattingDisplay {
-    flex: 1; /* Takes up all available vertical space */
-    overflow-y: auto; /* Enables vertical scrolling */
-    margin-bottom: 10px; /* Spacing between messages and input field */
-    padding: 10px; /* Add some padding inside the scrollable area */
-    border: 1px solid #ddd; /* Optional: Add a border around the chat display */
-    border-radius: 5px; /* Optional: Rounded corners */
+    flex: 1;
+    /* Takes up all available vertical space */
+    overflow-y: auto;
+    /* Enables vertical scrolling */
+    margin-bottom: 10px;
+    /* Spacing between messages and input field */
+    padding: 10px;
+    /* Add some padding inside the scrollable area */
+    border: 1px solid #ddd;
+    /* Optional: Add a border around the chat display */
+    border-radius: 5px;
+    /* Optional: Rounded corners */
 }
 
 
 .chattingArea {
     position: relative;
     bottom: 0;
-    display: flex; /* If you want to arrange input fields/buttons horizontally */
+    display: flex;
+    /* If you want to arrange input fields/buttons horizontally */
     gap: 10px;
 }
